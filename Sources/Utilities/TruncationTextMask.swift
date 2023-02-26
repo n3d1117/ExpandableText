@@ -20,7 +20,7 @@ private struct TruncationTextMask: ViewModifier {
                 .mask(
                     VStack(spacing: 0) {
                         Rectangle()
-                        HStack(spacing: 0){
+                        HStack(spacing: 0) {
                             Rectangle()
                             HStack(spacing: 0) {
                                 LinearGradient(
@@ -48,7 +48,7 @@ private struct TruncationTextMask: ViewModifier {
 }
 
 internal extension View {
-    func applyingTruncationMask(moreTextSize: CGSize, enabled: Bool) -> some View {
-        modifier(TruncationTextMask(size: moreTextSize, enabled: enabled))
+    func applyingTruncationMask(size: CGSize, enabled: Bool) -> some View {
+        modifier(TruncationTextMask(size: size, enabled: enabled))
     }
 }

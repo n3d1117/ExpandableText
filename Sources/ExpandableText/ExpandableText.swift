@@ -56,7 +56,7 @@ public struct ExpandableText: View {
     public var body: some View {
         content
             .lineLimit(isExpanded ? nil : lineLimit)
-            .applyingTruncationMask(moreTextSize: moreTextSize, enabled: !isExpanded && isTruncated)
+            .applyingTruncationMask(size: moreTextSize, enabled: shouldShowMoreButton)
             .readSize { size in
                 truncatedSize = size
                 isTruncated = truncatedSize != intrinsicSize
@@ -79,12 +79,12 @@ public struct ExpandableText: View {
             )
             .contentShape(Rectangle())
             .onTapGesture {
-                if !isExpanded, isTruncated {
-                    withAnimation { isExpanded.toggle() }
+                if shouldShowMoreButton {
+                    withAnimation(expandAnimation) { isExpanded.toggle() }
                 }
             }
             .modifier(OverlayAdapter(alignment: .trailingLastTextBaseline, view: {
-                if !isExpanded, isTruncated {
+                if shouldShowMoreButton {
                     Button {
                         withAnimation(expandAnimation) { isExpanded.toggle() }
                     } label: {
@@ -99,12 +99,16 @@ public struct ExpandableText: View {
     private var content: some View {
         Text(.init(
             trimMultipleNewlinesWhenTruncated
-                ? (!isExpanded && isTruncated ? textTrimmingDoubleNewlines : text)
+                ? (shouldShowMoreButton ? textTrimmingDoubleNewlines : text)
                 : text
         ))
         .font(font)
         .foregroundColor(color)
         .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private var shouldShowMoreButton: Bool {
+        !isExpanded && isTruncated
     }
     
     private var textTrimmingDoubleNewlines: String {
