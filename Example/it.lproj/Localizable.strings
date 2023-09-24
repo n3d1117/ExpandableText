@@ -1,0 +1,9 @@
+/* 
+  Localizable.strings
+  ExpandableTextExample
+
+  Created by ned on 27/08/23.
+  
+*/
+
+"EXAMPLE_LOCALIZED_TEXT_KEY" = "Questo è un esempio di un testo tradotto. Questo è un esempio di un testo tradotto. Questo è un esempio di un testo tradotto. Questo è un esempio di un testo tradotto. Questo è un esempio di un testo tradotto. Questo è un esempio di un testo tradotto. Questo è un esempio di un testo tradotto. Questo è un esempio di un testo tradotto. Questo è un esempio di un testo tradotto.";

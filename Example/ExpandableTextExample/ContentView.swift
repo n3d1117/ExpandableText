@@ -33,6 +33,12 @@ struct ContentView: View {
                     .trimMultipleNewlinesWhenTruncated(false)
                     .border(.red)
                 
+                ExpandableText("**Markdown** is _supported_")
+                    .border(.red)
+                
+                ExpandableText(String(localized: "EXAMPLE_LOCALIZED_TEXT_KEY"))
+                    .border(.red)
+                
                 Spacer()
             }
             .padding()

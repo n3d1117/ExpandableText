@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		81611DAF29AA6D7C00E11240 /* ExpandableText in Frameworks */ = {isa = PBXBuildFile; productRef = 81611DAE29AA6D7C00E11240 /* ExpandableText */; };
 		816E11FA29AA525C0006F0B1 /* ExpandableTextExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816E11F929AA525C0006F0B1 /* ExpandableTextExampleApp.swift */; };
 		816E11FC29AA525C0006F0B1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816E11FB29AA525C0006F0B1 /* ContentView.swift */; };
 		816E11FE29AA525D0006F0B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 816E11FD29AA525D0006F0B1 /* Assets.xcassets */; };
 		816E120129AA525D0006F0B1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 816E120029AA525D0006F0B1 /* Preview Assets.xcassets */; };
+		8196CFD32A9B76AC00646D12 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8196CFD52A9B76AC00646D12 /* Localizable.strings */; };
+		8196CFDB2A9B79AA00646D12 /* ExpandableText in Frameworks */ = {isa = PBXBuildFile; productRef = 8196CFDA2A9B79AA00646D12 /* ExpandableText */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,9 @@
 		816E11FB29AA525C0006F0B1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		816E11FD29AA525D0006F0B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		816E120029AA525D0006F0B1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8196CFD42A9B76AC00646D12 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8196CFD62A9B76EF00646D12 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8196CFD92A9B799300646D12 /* ExpandableText */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ExpandableText; path = ..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,7 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81611DAF29AA6D7C00E11240 /* ExpandableText in Frameworks */,
+				8196CFDB2A9B79AA00646D12 /* ExpandableText in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +48,8 @@
 		816E11ED29AA525B0006F0B1 = {
 			isa = PBXGroup;
 			children = (
+				8196CFD72A9B797800646D12 /* Packages */,
+				8196CFD52A9B76AC00646D12 /* Localizable.strings */,
 				816E11F829AA525C0006F0B1 /* ExpandableTextExample */,
 				816E11F729AA525C0006F0B1 /* Products */,
 				81189B9D29AA554F003AEFC0 /* Frameworks */,
@@ -77,6 +83,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		8196CFD72A9B797800646D12 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				8196CFD92A9B799300646D12 /* ExpandableText */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -94,7 +108,7 @@
 			);
 			name = ExpandableTextExample;
 			packageProductDependencies = (
-				81611DAE29AA6D7C00E11240 /* ExpandableText */,
+				8196CFDA2A9B79AA00646D12 /* ExpandableText */,
 			);
 			productName = ExpandableTextExample;
 			productReference = 816E11F629AA525C0006F0B1 /* ExpandableTextExample.app */;
@@ -122,10 +136,10 @@
 			knownRegions = (
 				en,
 				Base,
+				it,
 			);
 			mainGroup = 816E11ED29AA525B0006F0B1;
 			packageReferences = (
-				81611DAD29AA6D7C00E11240 /* XCRemoteSwiftPackageReference "ExpandableText" */,
 			);
 			productRefGroup = 816E11F729AA525C0006F0B1 /* Products */;
 			projectDirPath = "";
@@ -142,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				816E120129AA525D0006F0B1 /* Preview Assets.xcassets in Resources */,
+				8196CFD32A9B76AC00646D12 /* Localizable.strings in Resources */,
 				816E11FE29AA525D0006F0B1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -159,6 +174,18 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		8196CFD52A9B76AC00646D12 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8196CFD42A9B76AC00646D12 /* it */,
+				8196CFD62A9B76EF00646D12 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		816E120229AA525D0006F0B1 /* Debug */ = {
@@ -356,21 +383,9 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		81611DAD29AA6D7C00E11240 /* XCRemoteSwiftPackageReference "ExpandableText" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/n3d1117/ExpandableText.git";
-			requirement = {
-				kind = exactVersion;
-				version = 1.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
-		81611DAE29AA6D7C00E11240 /* ExpandableText */ = {
+		8196CFDA2A9B79AA00646D12 /* ExpandableText */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 81611DAD29AA6D7C00E11240 /* XCRemoteSwiftPackageReference "ExpandableText" */;
 			productName = ExpandableText;
 		};
 /* End XCSwiftPackageProductDependency section */
