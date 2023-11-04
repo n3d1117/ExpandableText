@@ -21,6 +21,7 @@ https://github.com/n3d1117/ExpandableText
 - Customizable font, color, and `more` button appearance with SwiftUI-like modifiers
 - Automatically hide `more` button if the whole text fits within the view
 - Support right-to-left languages
+- Support re-collapsing text by tapping on expanded text body (by [@JThramer](https://github.com/JThramer))
 - Support custom expand animation
 - Automatically trim multiple new lines when truncated (can be disabled)
 
@@ -67,6 +68,7 @@ ExpandableText(loremIpsum)
   .moreButtonText("read more")
   .moreButtonFont(.headline.bold())
   .moreButtonColor(.red)
+  .enableCollapse(true)
   .expandAnimation(.easeInOut(duration: 2))
   .trimMultipleNewlinesWhenTruncated(false)
 ```
