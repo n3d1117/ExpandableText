@@ -88,6 +88,17 @@ public extension ExpandableText {
     }
     
     /**
+      Enables collapsing behavior by tapping on the text body when the state is expanded.
+      - Parameter value: Whether or not to enable collapse functionality.
+      - Returns: A new `ExpandableText` instance with the specified collapse ability applied.
+      */
+     func enableCollapse(_ value: Bool) -> Self {
+         var copy = self
+         copy.collapseEnabled = value
+         return copy
+     }
+    
+    /**
      Sets whether multiple consecutive newline characters should be trimmed when truncating the text in the `ExpandableText` instance.
      - Parameter value: A boolean value indicating whether to trim multiple consecutive newline characters. Defaults to `true`
      - Returns: A new `ExpandableText` instance with the specified trimming behavior applied.

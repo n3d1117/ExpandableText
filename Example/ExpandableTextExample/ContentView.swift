@@ -31,6 +31,7 @@ struct ContentView: View {
                     .moreButtonColor(.red)
                     .expandAnimation(.easeInOut(duration: 2))
                     .trimMultipleNewlinesWhenTruncated(false)
+                    .enableCollapse(true)
                     .border(.red)
                 
                 ExpandableText("**Markdown** is _supported_")

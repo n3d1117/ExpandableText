@@ -42,6 +42,7 @@ public struct ExpandableText: View {
     internal var moreButtonFont: Font?
     internal var moreButtonColor: Color = .accentColor
     internal var expandAnimation: Animation = .default
+    internal var collapseEnabled: Bool = false
     internal var trimMultipleNewlinesWhenTruncated: Bool = true
     
     /**
@@ -79,7 +80,8 @@ public struct ExpandableText: View {
             )
             .contentShape(Rectangle())
             .onTapGesture {
-                if shouldShowMoreButton {
+                if (isExpanded && collapseEnabled) ||
+                     shouldShowMoreButton {
                     withAnimation(expandAnimation) { isExpanded.toggle() }
                 }
             }
