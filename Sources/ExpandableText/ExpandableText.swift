@@ -27,7 +27,7 @@ ExpandableText("Lorem ipsum dolor sit amet, consectetur adipiscing elit...")
 */
 public struct ExpandableText: View {
 
-    @State private var isExpanded: Bool = false
+    @State internal var isExpanded: Bool = false
     @State private var isTruncated: Bool = false
 
     @State private var intrinsicSize: CGSize = .zero
@@ -56,6 +56,11 @@ public struct ExpandableText: View {
     
     public var body: some View {
         content
+            .onChange(of: text) { _ in
+                if isExpanded {
+                    isExpanded = false
+                }
+            }
             .lineLimit(isExpanded ? nil : lineLimit)
             .applyingTruncationMask(size: moreTextSize, enabled: shouldShowMoreButton)
             .readSize { size in
@@ -94,6 +99,7 @@ public struct ExpandableText: View {
                             .font(moreButtonFont ?? font)
                             .foregroundColor(moreButtonColor)
                     }
+                    .buttonStyle(.plain)
                 }
             }))
     }
@@ -116,4 +122,8 @@ public struct ExpandableText: View {
     private var textTrimmingDoubleNewlines: String {
         text.replacingOccurrences(of: #"\n\s*\n"#, with: "\n", options: .regularExpression)
     }
+}
+
+#Preview {
+    ExpandableText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
 }
