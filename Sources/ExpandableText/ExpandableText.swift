@@ -29,7 +29,7 @@ public struct ExpandableText: View {
 
     @State internal var isExpanded: Bool = false
     @State private var isTruncated: Bool = false
-
+    @State private var showLessButton: Bool = false
     @State private var intrinsicSize: CGSize = .zero
     @State private var truncatedSize: CGSize = .zero
     @State private var moreTextSize: CGSize = .zero
@@ -107,27 +107,28 @@ public struct ExpandableText: View {
                     }
                     .buttonStyle(.plain)
                 } else if (isExpanded && !isTruncated) {
-                    // Initially hide the button
-                    @State var showLessButton = false
-                    // Use onAppear to trigger the delayed display of the button
-                    Button {
-                        withAnimation(expandAnimation) { isExpanded.toggle() }
-                    } label: {
-                        Text(lessButtonText)
-                            .font(buttonFont ?? font)
-                            .foregroundColor(buttonColor)
+                    VStack {
+                        if showLessButton {
+                            Button {
+                                withAnimation(expandAnimation) {
+                                    showLessButton = false
+                                    isExpanded.toggle()
+                                }
+                            } label: {
+                                Text(lessButtonText)
+                                    .font(buttonFont ?? font)
+                                    .foregroundColor(buttonColor)
+                            }
+                            .buttonStyle(.plain)
+                        }
                     }
-                    .buttonStyle(.plain)
-                    .opacity(showLessButton ? 1 : 0) // Use opacity to show/hide the button
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                            print("show button")
                             // Show the button after a delay of 0.25 seconds
                             showLessButton = true
                         }
                     }
                 }
-
             }))
     }
     
