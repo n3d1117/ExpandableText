@@ -107,11 +107,20 @@ public struct ExpandableText: View {
                             .foregroundColor(buttonColor)
                     }
                     .buttonStyle(.plain)
-                } else {
+                } else if isTruncated {
                     Button {
                         withAnimation(expandAnimation) { isExpanded.toggle() }
                     } label: {
-                        Text(lessButtonText)
+                        Text("TRUNCATED")
+                            .font(buttonFont ?? font)
+                            .foregroundColor(buttonColor)
+                    }
+                    .buttonStyle(.plain)
+                } else if !isTruncated {
+                    Button {
+                        withAnimation(expandAnimation) { isExpanded.toggle() }
+                    } label: {
+                        Text("NOT TRUNCATED")
                             .font(buttonFont ?? font)
                             .foregroundColor(buttonColor)
                     }
