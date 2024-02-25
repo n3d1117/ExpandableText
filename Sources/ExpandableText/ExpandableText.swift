@@ -126,6 +126,7 @@ public struct ExpandableText: View {
                                     .foregroundColor(buttonColor)
                             }
                             .buttonStyle(.plain)
+                            .animation(.easeIn)
                         }
                     }
                     .onAppear {
