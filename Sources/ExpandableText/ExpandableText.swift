@@ -93,13 +93,19 @@ public struct ExpandableText: View {
             .contentShape(Rectangle())
             .onTapGesture {
                 if (isExpanded && collapseEnabled) || shouldShowMoreButton {
-                    withAnimation(expandAnimation) { isExpanded.toggle() }
+                    withAnimation(expandAnimation) {
+                        isExpanded.toggle()
+                        showLessButton = false
+                    }
                 }
             }
             .modifier(OverlayAdapter(alignment: .trailingLastTextBaseline, view: {
                 if shouldShowMoreButton {
                     Button {
-                        withAnimation(expandAnimation) { isExpanded.toggle() }
+                        withAnimation(expandAnimation) {
+                            isExpanded.toggle()
+                            showLessButton = false
+                        }
                     } label: {
                         Text(moreButtonText)
                             .font(buttonFont ?? font)
