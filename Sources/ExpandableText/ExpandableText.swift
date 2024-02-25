@@ -126,9 +126,10 @@ public struct ExpandableText: View {
                                     .foregroundColor(buttonColor)
                             }
                             .buttonStyle(.plain)
-                            .animation(.easeIn)
+                            .animation(.smooth)
                         }
                     }
+                    .animation(.smooth)
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                             // Show the button after a delay of 0.25 seconds
