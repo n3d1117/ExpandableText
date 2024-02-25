@@ -112,6 +112,7 @@ public struct ExpandableText: View {
                             .foregroundColor(buttonColor)
                     }
                     .buttonStyle(.plain)
+                    .animation(.smooth, value: shouldShowMoreButton)
                 } else if (isExpanded && !isTruncated) {
                     VStack {
                         if showLessButton {
@@ -126,10 +127,9 @@ public struct ExpandableText: View {
                                     .foregroundColor(buttonColor)
                             }
                             .buttonStyle(.plain)
-                            .animation(.smooth)
                         }
                     }
-                    .animation(.smooth)
+                    .animation(.smooth, value: showLessButton)
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                             // Show the button after a delay of 0.25 seconds
