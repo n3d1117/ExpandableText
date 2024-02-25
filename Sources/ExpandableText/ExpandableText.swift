@@ -92,8 +92,7 @@ public struct ExpandableText: View {
             )
             .contentShape(Rectangle())
             .onTapGesture {
-                if (isExpanded && collapseEnabled) ||
-                     shouldShowMoreButton {
+                if (isExpanded && collapseEnabled) || shouldShowMoreButton {
                     withAnimation(expandAnimation) { isExpanded.toggle() }
                 }
             }
@@ -107,7 +106,7 @@ public struct ExpandableText: View {
                             .foregroundColor(buttonColor)
                     }
                     .buttonStyle(.plain)
-                } else if collapseEnabled {
+                } else if (isExpanded && collapseEnabled) {
                     Button {
                         withAnimation(expandAnimation) { isExpanded.toggle() }
                     } label: {
