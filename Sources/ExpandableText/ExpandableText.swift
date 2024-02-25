@@ -109,7 +109,6 @@ public struct ExpandableText: View {
                 } else if (isExpanded && !isTruncated) {
                     // Initially hide the button
                     @State var showLessButton = false
-                    
                     // Use onAppear to trigger the delayed display of the button
                     Button {
                         withAnimation(expandAnimation) { isExpanded.toggle() }
@@ -120,9 +119,9 @@ public struct ExpandableText: View {
                     }
                     .buttonStyle(.plain)
                     .opacity(showLessButton ? 1 : 0) // Use opacity to show/hide the button
-                    
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                            print("show button")
                             // Show the button after a delay of 0.25 seconds
                             showLessButton = true
                         }
