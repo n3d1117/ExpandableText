@@ -107,7 +107,7 @@ public struct ExpandableText: View {
                             .foregroundColor(buttonColor)
                     }
                     .buttonStyle(.plain)
-                } else if isTruncated {
+                } else if isExpanded && isTruncated {
                     Button {
                         withAnimation(expandAnimation) { isExpanded.toggle() }
                     } label: {
