@@ -39,8 +39,9 @@ public struct ExpandableText: View {
     internal var color: Color = .primary
     internal var lineLimit: Int = 3
     internal var moreButtonText: String = "more"
-    internal var moreButtonFont: Font?
-    internal var moreButtonColor: Color = .accentColor
+    internal var lessButtonText: String = "less"
+    internal var buttonFont: Font?
+    internal var buttonColor: Color = .accentColor
     internal var expandAnimation: Animation = .default
     internal var collapseEnabled: Bool = false
     internal var trimMultipleNewlinesWhenTruncated: Bool = true
@@ -79,7 +80,13 @@ public struct ExpandableText: View {
             )
             .background(
                 Text(moreButtonText)
-                    .font(moreButtonFont ?? font)
+                    .font(buttonFont ?? font)
+                    .hidden()
+                    .readSize { moreTextSize = $0 }
+            )
+            .background(
+                Text(lessButtonText)
+                    .font(buttonFont ?? font)
                     .hidden()
                     .readSize { moreTextSize = $0 }
             )
@@ -96,8 +103,17 @@ public struct ExpandableText: View {
                         withAnimation(expandAnimation) { isExpanded.toggle() }
                     } label: {
                         Text(moreButtonText)
-                            .font(moreButtonFont ?? font)
-                            .foregroundColor(moreButtonColor)
+                            .font(buttonFont ?? font)
+                            .foregroundColor(buttonColor)
+                    }
+                    .buttonStyle(.plain)
+                } else {
+                    Button {
+                        withAnimation(expandAnimation) { isExpanded.toggle() }
+                    } label: {
+                        Text(lessButtonText)
+                            .font(buttonFont ?? font)
+                            .foregroundColor(buttonColor)
                     }
                     .buttonStyle(.plain)
                 }
