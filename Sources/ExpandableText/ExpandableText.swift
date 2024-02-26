@@ -139,6 +139,7 @@ public struct ExpandableText: View {
                     }
                 }
             }))
+            .animation(.smooth, value: shouldShowMoreButton)
     }
     
     private var content: some View {
