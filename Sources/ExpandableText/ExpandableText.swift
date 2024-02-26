@@ -130,6 +130,7 @@ public struct ExpandableText: View {
                         }
                     }
                     .animation(.smooth, value: showLessButton)
+                    .animation(.smooth, value: shouldShowMoreButton)
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                             // Show the button after a delay of 0.25 seconds
