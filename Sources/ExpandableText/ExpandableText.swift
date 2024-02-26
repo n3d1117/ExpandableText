@@ -27,9 +27,9 @@ ExpandableText("Lorem ipsum dolor sit amet, consectetur adipiscing elit...")
 */
 public struct ExpandableText: View {
 
-    @State private var isExpanded: Bool = false
+    @State internal var isExpanded: Bool = false
     @State private var isTruncated: Bool = false
-
+    @State private var showLessButton: Bool = false
     @State private var intrinsicSize: CGSize = .zero
     @State private var truncatedSize: CGSize = .zero
     @State private var moreTextSize: CGSize = .zero
@@ -39,8 +39,9 @@ public struct ExpandableText: View {
     internal var color: Color = .primary
     internal var lineLimit: Int = 3
     internal var moreButtonText: String = "more"
-    internal var moreButtonFont: Font?
-    internal var moreButtonColor: Color = .accentColor
+    internal var lessButtonText: String = "less"
+    internal var buttonFont: Font?
+    internal var buttonColor: Color = .accentColor
     internal var expandAnimation: Animation = .default
     internal var collapseEnabled: Bool = false
     internal var trimMultipleNewlinesWhenTruncated: Bool = true
@@ -56,6 +57,11 @@ public struct ExpandableText: View {
     
     public var body: some View {
         content
+            .onChange(of: text) { _ in
+                if isExpanded {
+                    isExpanded = false
+                }
+            }
             .lineLimit(isExpanded ? nil : lineLimit)
             .applyingTruncationMask(size: moreTextSize, enabled: shouldShowMoreButton)
             .readSize { size in
@@ -74,28 +80,66 @@ public struct ExpandableText: View {
             )
             .background(
                 Text(moreButtonText)
-                    .font(moreButtonFont ?? font)
+                    .font(buttonFont ?? font)
+                    .hidden()
+                    .readSize { moreTextSize = $0 }
+            )
+            .background(
+                Text(lessButtonText)
+                    .font(buttonFont ?? font)
                     .hidden()
                     .readSize { moreTextSize = $0 }
             )
             .contentShape(Rectangle())
             .onTapGesture {
-                if (isExpanded && collapseEnabled) ||
-                     shouldShowMoreButton {
-                    withAnimation(expandAnimation) { isExpanded.toggle() }
+                if (isExpanded && collapseEnabled) || shouldShowMoreButton {
+                    withAnimation(expandAnimation) {
+                        isExpanded.toggle()
+                        showLessButton = false
+                    }
                 }
             }
             .modifier(OverlayAdapter(alignment: .trailingLastTextBaseline, view: {
                 if shouldShowMoreButton {
                     Button {
-                        withAnimation(expandAnimation) { isExpanded.toggle() }
+                        withAnimation(expandAnimation) {
+                            isExpanded.toggle()
+                            showLessButton = false
+                        }
                     } label: {
                         Text(moreButtonText)
-                            .font(moreButtonFont ?? font)
-                            .foregroundColor(moreButtonColor)
+                            .font(buttonFont ?? font)
+                            .foregroundColor(buttonColor)
+                    }
+                    .buttonStyle(.plain)
+                    .animation(.smooth, value: shouldShowMoreButton)
+                } else if (isExpanded && !isTruncated) {
+                    VStack {
+                        if showLessButton {
+                            Button {
+                                withAnimation(expandAnimation) {
+                                    showLessButton = false
+                                    isExpanded.toggle()
+                                }
+                            } label: {
+                                Text(lessButtonText)
+                                    .font(buttonFont ?? font)
+                                    .foregroundColor(buttonColor)
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                    .animation(.smooth, value: showLessButton)
+                    .animation(.smooth, value: shouldShowMoreButton)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                            // Show the button after a delay of 0.25 seconds
+                            showLessButton = true
+                        }
                     }
                 }
             }))
+            .animation(.smooth, value: shouldShowMoreButton)
     }
     
     private var content: some View {
@@ -116,4 +160,8 @@ public struct ExpandableText: View {
     private var textTrimmingDoubleNewlines: String {
         text.replacingOccurrences(of: #"\n\s*\n"#, with: "\n", options: .regularExpression)
     }
+}
+
+#Preview {
+    ExpandableText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
 }

@@ -55,24 +55,35 @@ public extension ExpandableText {
     }
     
     /**
-     Sets the font to use for the "show more" button in the `ExpandableText` instance.
-     - Parameter font: The font to use for the "show more" button. Defaults to the same font as the text
-     - Returns: A new `ExpandableText` instance with the specified "show more" button font applied.
+     Sets the text to use for the "show less" button in the `ExpandableText` instance.
+     - Parameter moreText: The text to use for the "show less" button. Defaults to `less`
+     - Returns: A new `ExpandableText` instance with the specified "show more" button text applied.
      */
-    func moreButtonFont(_ font: Font) -> Self {
+    func lessButtonText(_ lessText: String) -> Self {
         var copy = self
-        copy.moreButtonFont = font
+        copy.lessButtonText = lessText
         return copy
     }
     
     /**
-     Sets the color to use for the "show more" button in the `ExpandableText` instance.
-     - Parameter color: The color to use for the "show more" button. Defaults to `accentColor`
-     - Returns: A new `ExpandableText` instance with the specified "show more" button color applied.
+     Sets the font to use for the "show more" button in the `ExpandableText` instance.
+     - Parameter font: The font to use for the "show more" button. Defaults to the same font as the text
+     - Returns: A new `ExpandableText` instance with the specified "show more" button font applied.
      */
-    func moreButtonColor(_ color: Color) -> Self {
+    func buttonFont(_ font: Font) -> Self {
         var copy = self
-        copy.moreButtonColor = color
+        copy.buttonFont = font
+        return copy
+    }
+    
+    /**
+     Sets the color to use for the "show less/more" buttons in the `ExpandableText` instance.
+     - Parameter color: The color to use for the "show less/more" buttons. Defaults to `accentColor`
+     - Returns: A new `ExpandableText` instance with the specified "show less/more" buttons color applied.
+     */
+    func buttonColor(_ color: Color) -> Self {
+        var copy = self
+        copy.buttonColor = color
         return copy
     }
     

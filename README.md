@@ -2,6 +2,7 @@
 [![build](https://github.com/n3d1117/ExpandableText/actions/workflows/build.yml/badge.svg)](https://github.com/n3d1117/ExpandableText/actions/workflows/build.yml)
 [![swift-version](https://img.shields.io/badge/swift-5.7-orange.svg)](https://github.com/apple/swift/)
 [![ios-version](https://img.shields.io/badge/ios-13.0+-brightgreen.svg)](https://github.com/apple/ios/)
+[![macos-version](https://img.shields.io/badge/macos-12.0+-brightgreen.svg)](https://github.com/apple/macos/)
 [![xcode-version](https://img.shields.io/badge/xcode-14.2-blue)](https://developer.apple.com/xcode/)
 [![license](https://img.shields.io/badge/license-The%20Unlicense-yellow.svg)](LICENSE)
 
