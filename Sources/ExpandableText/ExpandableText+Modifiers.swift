@@ -1,6 +1,6 @@
 //
 //  ExpandableText+Modifiers.swift
-//  
+//
 //
 //  Created by ned on 25/02/23.
 //
@@ -22,13 +22,13 @@ public extension ExpandableText {
     }
     
     /**
-     Sets the foreground color for the text in the `ExpandableText` instance.
-     - Parameter color: The foreground color to use for the text. Defaults to `primary`
+     Sets the foreground style for the text in the `ExpandableText` instance.
+     - Parameter color: The foreground style to use for the text. Defaults to `primary`
      - Returns: A new `ExpandableText` instance with the specified foreground color applied.
      */
-    func foregroundColor(_ color: Color) -> Self {
+    func foregroundColor<S: ShapeStyle>(_ style: S) -> Self {
         var copy = self
-        copy.color = color
+        copy.style = style
         return copy
     }
     
@@ -70,9 +70,9 @@ public extension ExpandableText {
      - Parameter color: The color to use for the "show more" button. Defaults to `accentColor`
      - Returns: A new `ExpandableText` instance with the specified "show more" button color applied.
      */
-    func moreButtonColor(_ color: Color) -> Self {
+    func moreButtonColor<S: ShapeStyle>(_ style: S) -> Self {
         var copy = self
-        copy.moreButtonColor = color
+        copy.moreButtonStyle = style
         return copy
     }
     
@@ -88,15 +88,15 @@ public extension ExpandableText {
     }
     
     /**
-      Enables collapsing behavior by tapping on the text body when the state is expanded.
-      - Parameter value: Whether or not to enable collapse functionality.
-      - Returns: A new `ExpandableText` instance with the specified collapse ability applied.
-      */
-     func enableCollapse(_ value: Bool) -> Self {
-         var copy = self
-         copy.collapseEnabled = value
-         return copy
-     }
+     Enables collapsing behavior by tapping on the text body when the state is expanded.
+     - Parameter value: Whether or not to enable collapse functionality.
+     - Returns: A new `ExpandableText` instance with the specified collapse ability applied.
+     */
+    func enableCollapse(_ value: Bool) -> Self {
+        var copy = self
+        copy.collapseEnabled = value
+        return copy
+    }
     
     /**
      Sets whether multiple consecutive newline characters should be trimmed when truncating the text in the `ExpandableText` instance.

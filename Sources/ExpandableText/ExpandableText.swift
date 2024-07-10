@@ -9,38 +9,39 @@ import Foundation
 import SwiftUI
 
 /**
-An expandable text view that displays a truncated version of its contents with a "show more" button that expands the view to show the full contents.
-
+ An expandable text view that displays a truncated version of its contents with a "show more" button that expands the view to show the full contents.
+ 
  To create a new ExpandableText view, use the init method and provide the initial text string as a parameter. The text string will be automatically trimmed of any leading or trailing whitespace and newline characters.
-
-Example usage with default parameters:
+ 
+ Example usage with default parameters:
  ```swift
-ExpandableText("Lorem ipsum dolor sit amet, consectetur adipiscing elit...")
-    .font(.body)
-    .foregroundColor(.primary)
-    .lineLimit(3)
-    .moreButtonText("more")
-    .moreButtonColor(.accentColor)
-    .expandAnimation(.default)
-    .trimMultipleNewlinesWhenTruncated(true)
+ ExpandableText("Lorem ipsum dolor sit amet, consectetur adipiscing elit...")
+ .font(.body)
+ .foregroundStyle(.primary)
+ .lineLimit(3)
+ .moreButtonText("more")
+ .moreButtonColor(.accentColor)
+ .expandAnimation(.default)
+ .trimMultipleNewlinesWhenTruncated(true)
  ```
-*/
+ */
 public struct ExpandableText: View {
-
+    
     @State private var isExpanded: Bool = false
     @State private var isTruncated: Bool = false
-
+    
     @State private var intrinsicSize: CGSize = .zero
     @State private var truncatedSize: CGSize = .zero
     @State private var moreTextSize: CGSize = .zero
     
     private let text: String
     internal var font: Font = .body
-    internal var color: Color = .primary
+    internal var style: any ShapeStyle = HierarchicalShapeStyle.primary
+    
     internal var lineLimit: Int = 3
     internal var moreButtonText: String = "more"
     internal var moreButtonFont: Font?
-    internal var moreButtonColor: Color = .accentColor
+    internal var moreButtonStyle: any ShapeStyle = .tint
     internal var expandAnimation: Animation = .default
     internal var collapseEnabled: Bool = false
     internal var trimMultipleNewlinesWhenTruncated: Bool = true
@@ -81,7 +82,7 @@ public struct ExpandableText: View {
             .contentShape(Rectangle())
             .onTapGesture {
                 if (isExpanded && collapseEnabled) ||
-                     shouldShowMoreButton {
+                    shouldShowMoreButton {
                     withAnimation(expandAnimation) { isExpanded.toggle() }
                 }
             }
@@ -92,7 +93,7 @@ public struct ExpandableText: View {
                     } label: {
                         Text(moreButtonText)
                             .font(moreButtonFont ?? font)
-                            .foregroundColor(moreButtonColor)
+                            .foregroundStyle(AnyShapeStyle(moreButtonStyle))
                     }
                 }
             }))
@@ -101,14 +102,14 @@ public struct ExpandableText: View {
     private var content: some View {
         Text(.init(
             trimMultipleNewlinesWhenTruncated
-                ? (shouldShowMoreButton ? textTrimmingDoubleNewlines : text)
-                : text
+            ? (shouldShowMoreButton ? textTrimmingDoubleNewlines : text)
+            : text
         ))
         .font(font)
-        .foregroundColor(color)
+        .foregroundStyle(AnyShapeStyle(style))
         .frame(maxWidth: .infinity, alignment: .leading)
     }
-
+    
     private var shouldShowMoreButton: Bool {
         !isExpanded && isTruncated
     }
