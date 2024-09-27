@@ -77,6 +77,17 @@ public extension ExpandableText {
     }
     
     /**
+     Sets the pressed color to use for the "show more" button in the `ExpandableText` instance.
+     - Parameter color: The color to use for the "show more" button pressed state.
+     - Returns: A new `ExpandableText` instance with the specified "show more" button pressed color applied.
+     */
+    func moreButtonPressedColor(_ color: Color) -> Self {
+        var copy = self
+        copy.moreButtonPressedColor = color
+        return copy
+    }
+
+    /**
      Sets the animation to use when expanding the `ExpandableText` instance.
      - Parameter animation: The animation to use for the expansion. Defaults to `default`
      - Returns: A new `ExpandableText` instance with the specified expansion animation applied.

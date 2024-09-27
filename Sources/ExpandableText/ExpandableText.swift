@@ -41,6 +41,7 @@ public struct ExpandableText: View {
     internal var moreButtonText: String = "more"
     internal var moreButtonFont: Font?
     internal var moreButtonColor: Color = .accentColor
+    internal var moreButtonPressedColor: Color?
     internal var expandAnimation: Animation = .default
     internal var collapseEnabled: Bool = false
     internal var trimMultipleNewlinesWhenTruncated: Bool = true
@@ -85,17 +86,17 @@ public struct ExpandableText: View {
                     withAnimation(expandAnimation) { isExpanded.toggle() }
                 }
             }
-            .modifier(OverlayAdapter(alignment: .trailingLastTextBaseline, view: {
-                if shouldShowMoreButton {
-                    Button {
-                        withAnimation(expandAnimation) { isExpanded.toggle() }
-                    } label: {
-                        Text(moreButtonText)
-                            .font(moreButtonFont ?? font)
-                            .foregroundColor(moreButtonColor)
-                    }
+            .modifier(OverlayAdapter(alignment: .trailingLastTextBaseline) {
+                if let moreButtonPressedColor {
+                    button
+                        .buttonStyle(
+                            .pressedColorButton(moreButtonColor, moreButtonPressedColor)
+                        )
+                } else {
+                    button
+                        .foregroundColor(moreButtonColor)
                 }
-            }))
+            })
     }
     
     private var content: some View {
@@ -109,11 +110,43 @@ public struct ExpandableText: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
+    private var button: some View {
+        Button {
+            withAnimation(expandAnimation) { isExpanded.toggle() }
+        } label: {
+            Text(moreButtonText)
+                .font(moreButtonFont ?? font)
+        }
+        .opacity(shouldShowMoreButton ? 1 : 0)
+    }
+
     private var shouldShowMoreButton: Bool {
         !isExpanded && isTruncated
     }
     
     private var textTrimmingDoubleNewlines: String {
         text.replacingOccurrences(of: #"\n\s*\n"#, with: "\n", options: .regularExpression)
+    }
+}
+
+internal struct PressedColorButton: ButtonStyle {
+    let moreButtonColor: Color
+    let moreButtonPressedColor: Color
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundColor(configuration.isPressed ? moreButtonPressedColor : moreButtonColor)
+    }
+}
+
+internal extension ButtonStyle where Self == PressedColorButton {
+    static func pressedColorButton(
+        _ moreButtonColor: Color,
+        _ moreButtonPressedColor: Color
+    ) -> Self {
+        Self(
+            moreButtonColor: moreButtonColor,
+            moreButtonPressedColor: moreButtonPressedColor
+        )
     }
 }

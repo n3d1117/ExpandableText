@@ -40,6 +40,7 @@ private struct TruncationTextMask: ViewModifier {
                         }.frame(height: size.height)
                     }
                 )
+                .fixedSize(horizontal: false, vertical: true)
         } else {
             content
                 .fixedSize(horizontal: false, vertical: true)
