@@ -1,6 +1,6 @@
 //
 //  ExpandableText+Modifiers.swift
-//  
+//
 //
 //  Created by ned on 25/02/23.
 //
@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 public extension ExpandableText {
-    
+
     /**
      Sets the font for the text in the `ExpandableText` instance.
      - Parameter font: The font to use for the text. Defaults to `body`
@@ -20,7 +20,7 @@ public extension ExpandableText {
         copy.font = font
         return copy
     }
-    
+
     /**
      Sets the foreground color for the text in the `ExpandableText` instance.
      - Parameter color: The foreground color to use for the text. Defaults to `primary`
@@ -31,7 +31,7 @@ public extension ExpandableText {
         copy.color = color
         return copy
     }
-    
+
     /**
      Sets the maximum number of lines to use for rendering the text in the `ExpandableText` instance.
      - Parameter limit: The maximum number of lines to use for rendering the text. Defaults to `3`
@@ -42,7 +42,7 @@ public extension ExpandableText {
         copy.lineLimit = limit
         return copy
     }
-    
+
     /**
      Sets the text to use for the "show more" button in the `ExpandableText` instance.
      - Parameter moreText: The text to use for the "show more" button. Defaults to `more`
@@ -53,7 +53,18 @@ public extension ExpandableText {
         copy.moreButtonText = moreText
         return copy
     }
-    
+
+    /**
+     Sets the text to use for the "show less" button in the `ExpandableText` instance.
+     - Parameter lessText: The text to use for the "show less" button. Defaults to `less`
+     - Returns: A new `ExpandableText` instance with the specified "show less" button text applied.
+     */
+    func lessButtonText(_ lessText: String) -> Self {
+        var copy = self
+        copy.lessButtonText = lessText
+        return copy
+    }
+
     /**
      Sets the font to use for the "show more" button in the `ExpandableText` instance.
      - Parameter font: The font to use for the "show more" button. Defaults to the same font as the text
@@ -64,7 +75,7 @@ public extension ExpandableText {
         copy.moreButtonFont = font
         return copy
     }
-    
+
     /**
      Sets the color to use for the "show more" button in the `ExpandableText` instance.
      - Parameter color: The color to use for the "show more" button. Defaults to `accentColor`
@@ -75,7 +86,7 @@ public extension ExpandableText {
         copy.moreButtonColor = color
         return copy
     }
-    
+
     /**
      Sets the animation to use when expanding the `ExpandableText` instance.
      - Parameter animation: The animation to use for the expansion. Defaults to `default`
@@ -86,7 +97,7 @@ public extension ExpandableText {
         copy.expandAnimation = animation
         return copy
     }
-    
+
     /**
       Enables collapsing behavior by tapping on the text body when the state is expanded.
       - Parameter value: Whether or not to enable collapse functionality.
@@ -97,7 +108,7 @@ public extension ExpandableText {
          copy.collapseEnabled = value
          return copy
      }
-    
+
     /**
      Sets whether multiple consecutive newline characters should be trimmed when truncating the text in the `ExpandableText` instance.
      - Parameter value: A boolean value indicating whether to trim multiple consecutive newline characters. Defaults to `true`

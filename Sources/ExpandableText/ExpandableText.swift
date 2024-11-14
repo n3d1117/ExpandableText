@@ -32,19 +32,20 @@ public struct ExpandableText: View {
 
     @State private var intrinsicSize: CGSize = .zero
     @State private var truncatedSize: CGSize = .zero
-    @State private var moreTextSize: CGSize = .zero
-    
+    @State private var buttonTextSize: CGSize = .zero
+
     private let text: String
     internal var font: Font = .body
     internal var color: Color = .primary
     internal var lineLimit: Int = 3
     internal var moreButtonText: String = "more"
+    internal var lessButtonText: String = "less" // Added for "Show Less" feature
     internal var moreButtonFont: Font?
     internal var moreButtonColor: Color = .accentColor
     internal var expandAnimation: Animation = .default
     internal var collapseEnabled: Bool = false
     internal var trimMultipleNewlinesWhenTruncated: Bool = true
-    
+
     /**
      Initializes a new `ExpandableText` instance with the specified text string, trimmed of any leading or trailing whitespace and newline characters.
      - Parameter text: The initial text string to display in the `ExpandableText` view.
@@ -53,11 +54,11 @@ public struct ExpandableText: View {
     public init(_ text: String) {
         self.text = text.trimmingCharacters(in: .whitespacesAndNewlines)
     }
-    
+
     public var body: some View {
         content
             .lineLimit(isExpanded ? nil : lineLimit)
-            .applyingTruncationMask(size: moreTextSize, enabled: shouldShowMoreButton)
+            .applyingTruncationMask(size: buttonTextSize, enabled: shouldShowMoreButton)
             .readSize { size in
                 truncatedSize = size
                 isTruncated = truncatedSize != intrinsicSize
@@ -73,10 +74,10 @@ public struct ExpandableText: View {
                     }
             )
             .background(
-                Text(moreButtonText)
+                Text(isExpanded ? lessButtonText : moreButtonText) // Use the appropriate text based on expansion state
                     .font(moreButtonFont ?? font)
                     .hidden()
-                    .readSize { moreTextSize = $0 }
+                    .readSize { buttonTextSize = $0 }
             )
             .contentShape(Rectangle())
             .onTapGesture {
@@ -86,18 +87,18 @@ public struct ExpandableText: View {
                 }
             }
             .modifier(OverlayAdapter(alignment: .trailingLastTextBaseline, view: {
-                if shouldShowMoreButton {
+                if shouldShowMoreButton || shouldShowLessButton {
                     Button {
                         withAnimation(expandAnimation) { isExpanded.toggle() }
                     } label: {
-                        Text(moreButtonText)
+                        Text(isExpanded ? lessButtonText : moreButtonText) // Toggle button text
                             .font(moreButtonFont ?? font)
                             .foregroundColor(moreButtonColor)
                     }
                 }
             }))
     }
-    
+
     private var content: some View {
         Text(.init(
             trimMultipleNewlinesWhenTruncated
@@ -112,7 +113,12 @@ public struct ExpandableText: View {
     private var shouldShowMoreButton: Bool {
         !isExpanded && isTruncated
     }
-    
+
+
+    private var shouldShowLessButton: Bool {
+        isExpanded && collapseEnabled
+    }
+
     private var textTrimmingDoubleNewlines: String {
         text.replacingOccurrences(of: #"\n\s*\n"#, with: "\n", options: .regularExpression)
     }
